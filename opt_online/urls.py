@@ -6,5 +6,4 @@ from . import views
 urlpatterns = [
 	url(r'^$',  views.index, name='index'),
 	url(r"^code/(?P<code>\d+)/$", views.good, name='good'),
-	url(r'^hello', views.hello, name='hello'),
 ]

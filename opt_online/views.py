@@ -9,14 +9,13 @@ def hello(request):
 
 def index(request):
 	goods = Goods.objects.all()
-	good = Goods.objects.first()
 	#paginator = Paginator(Good.objects.filter(category=cat).order_by('name'), 1)
 	return render(request, 'opt_online/index.html', {'goods': goods})
 
 def good(request, code):
 	good = Goods.objects.get(code=code)
 	#good = code
-	return render(request, 'opt_online/good.html', {'good': good})
+	return render(request, 'opt_online/good.html', {'good': good, 'req': request})
 
 
 # def categories(request):
