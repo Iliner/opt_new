@@ -14,17 +14,13 @@
 </head>
 <body>
 
-	{% include '/includes/header.html' %}
+	{% include 'header.html' %}
 
-	<nav class='navbar navbar-default'>
-		<div class='container-fluid'></div>
-		<div class='navbar-header'><a href="/" class='navbar-brand'>Prime-Tools</a></div>
-	</nav>
 
 <div>
 	<div class='container-fluid'>
 	{% for good in goods %}
-			<a href="code/{{good.code}}">
+			<a href="{% url 'good' good.code %}">
 				<div class="row">
 					<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1 '>{{good.code}}</div>
 					<div class='col-xs-1 col-sm-2 col-md-1 col-lg-1 '>{{good.producer}}</div>
@@ -34,7 +30,30 @@
 			  	</div>
 			</a>
 	{% endfor %}
+{% if goods.paginator.num_pages > 1 %}
+	<div id='pagination'>
+		{% if goods.has_previous %}
+			<div id='previous-page'><a href="{% url 'index' %}?page={{ goods.previous_page_number }}">&lt;</a></div>
+		{% endif %}
+		{% if goods.has_next %}
+			<div id='next-page'><a href="{% url 'index' %}?page={{ goods.next_page_number }}">&gt;</a></div>
+		{% endif %}
+		<div id='num-pages'>
+			{% for pn in goods.paginator.page_range %}
+				{% if not forllop.first %}
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+				{% endif %}
+				{% if goods.number != pn %}
+					<a href="{% url 'index' %}?page={{ pn }}">
+				{% endif %}
+				{{ pn }}
+				{% if goods.number != pn %}
+					</a>
+				{% endif %}
+			{% endfor %}
+		</div>	
 	</div>
+{% endif %}
 </div>
 
 <div id='main'>

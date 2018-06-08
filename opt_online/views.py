@@ -1,16 +1,20 @@
 from django.shortcuts import render
 from .models import Goods, Category
+from django.core.paginator import Paginator, InvalidPage
 	
-
-def hello(request):
-	return render(request, 'opt_online/hello.html', {})
-
 
 
 def index(request):
-	goods = Goods.objects.all()
-	#paginator = Paginator(Good.objects.filter(category=cat).order_by('name'), 1)
-	return render(request, 'opt_online/index.html', {'goods': goods})
+	try:
+		page_num = GET['page']
+	except:
+		page_num = 1
+	pag = Paginator(Goods.objects.all(), 1)
+	try:
+		goods = pag.page(page_num)
+	except InvalidPage:
+		goods = pag.page(1)
+	return render(request, 'opt_online/index.html', {'goods': goods, 'page': page_num})
 
 def good(request, code):
 	good = Goods.objects.get(code=code)
