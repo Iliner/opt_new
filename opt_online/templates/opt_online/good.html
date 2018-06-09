@@ -1,10 +1,11 @@
 {% extends 'opt_online/index.html' %}
 
 {% block main %}
-	<div class='container'>
+	<div id='page_for_good' class='container'>
 		<div>{{good.code}}</div>
 		<div>{{good.producer}}</div>
 		<div>{{good.articul}}</div>
 		<div>{{good.description}}</div>
+		<div><a href="{% url 'index' %}?page={{pn}}">back</a></div>
 	</div>
 {% endblock %}

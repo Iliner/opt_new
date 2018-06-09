@@ -6,10 +6,10 @@ from django.core.paginator import Paginator, InvalidPage
 
 def index(request):
 	try:
-		page_num = GET['page']
-	except:
+		page_num = request.GET['page']
+	except KeyError:
 		page_num = 1
-	pag = Paginator(Goods.objects.all(), 1)
+	pag = Paginator(Goods.objects.all(), 2)
 	try:
 		goods = pag.page(page_num)
 	except InvalidPage:
@@ -17,9 +17,13 @@ def index(request):
 	return render(request, 'opt_online/index.html', {'goods': goods, 'page': page_num})
 
 def good(request, code):
+	try:
+		page_num = request.GET['page']
+	except KeyError:
+		page_num = 1
 	good = Goods.objects.get(code=code)
 	#good = code
-	return render(request, 'opt_online/good.html', {'good': good, 'req': request})
+	return render(request, 'opt_online/good.html', {'good': good, 'pn': page_num})
 
 
 # def categories(request):

@@ -17,19 +17,30 @@
 	{% include 'header.html' %}
 
 
-<div>
-	<div class='container-fluid'>
-	{% for good in goods %}
-			<a href="{% url 'good' good.code %}">
-				<div class="row">
-					<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1 '>{{good.code}}</div>
-					<div class='col-xs-1 col-sm-2 col-md-1 col-lg-1 '>{{good.producer}}</div>
-					<div class='col-xs-1 col-sm-3 col-md-1 col-lg-1 '>{{good.articul}}</div>
-					<div class='col-xs-2 col-sm-3 col-md-4 col-lg-5 '>{{good.description}}</div>
-					<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1 '>{{good.price}}</div>
-			  	</div>
-			</a>
-	{% endfor %}
+{% block main %}
+<div class='main'>
+	<table class='table'>
+		<thead>
+			<th>Код</th>
+			<th>Производитель</th>
+			<th>Артикул</th>
+			<th>Описание</th>
+			<th>Цена</th>
+		</thead>
+		<tbody>
+			{% for good in goods %}
+				<a href="{% url 'good' good.code %}?page={{goods.number}}">
+					<tr>
+						<th><a href="{% url 'good' good.code %}?page={{goods.number}}">{{good.code}}</a></th>
+						<th>{{good.producer}}</th>
+						<th>{{good.articul}}</th>
+						<th>{{good.description}}</th>
+						<th>{{good.price}}</th>
+					</tr>
+				</a>		
+			{% endfor %}
+		</tbody>	
+	</table>
 {% if goods.paginator.num_pages > 1 %}
 	<div id='pagination'>
 		{% if goods.has_previous %}
@@ -56,10 +67,8 @@
 {% endif %}
 </div>
 
-<div id='main'>
-{% block main %}
 {% endblock %}
-</div>
+
 
 <script type="text/javascript">
 </script>
