@@ -4,17 +4,26 @@ from django.core.paginator import Paginator, InvalidPage
 	
 
 
-def index(request):
+def index(request, cat_id):
 	try:
 		page_num = request.GET['page']
 	except KeyError:
 		page_num = 1
-	pag = Paginator(Goods.objects.all(), 2)
-	try:
-		goods = pag.page(page_num)
-	except InvalidPage:
-		goods = pag.page(1)
-	return render(request, 'opt_online/index.html', {'goods': goods, 'page': page_num})
+	cats = Category.objects.all()
+	if cat_id:
+		category = Category.objects.get(pk=cat_id)
+		pag = Paginator(Goods.objects.filter(category=category), 1)
+		try:
+			goods = pag.page(page_num)
+		except InvalidPage:
+			goods = pag.page(1)
+	else:
+		pag = Paginator(Goods.objects.all(), 2)
+		try:
+			goods = pag.page(page_num)
+		except InvalidPage:
+			goods = pag.page(1)
+	return render(request, 'opt_online/index.html', {'goods': goods, 'page': page_num, 'cats': cats})
 
 def good(request, code):
 	try:
