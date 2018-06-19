@@ -25,7 +25,7 @@ SECRET_KEY = '7-c$x=(i-s^z43+@((csq+0%$bj*kg8osh+-(3e-f*3#zfy!6d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'Golgot.pythonanywhere.com']
 
 
 # Application definition
