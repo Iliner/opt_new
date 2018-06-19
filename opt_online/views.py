@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Goods, Category
 from django.core.paginator import Paginator, InvalidPage
-	
+from django.views.generic.list import ListView	
 
 
 def index(request):
@@ -15,6 +15,17 @@ def index(request):
 	except InvalidPage:
 		goods = pag.page(1)
 	return render(request, 'opt_online/index.html', {'goods': goods, 'page': page_num})
+
+
+# class GoodListView(ListView):
+# 	template_name = 'opt_online/index.html'
+# 	queryset = Goods.objects.all()
+# 	paginator_by = 1 
+# 	cat= None
+
+# 	def get(self, **kwarrgs):
+# 		if self.GET['']
+
 
 def good(request, code):
 	try:
