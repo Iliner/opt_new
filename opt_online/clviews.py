@@ -9,7 +9,7 @@ class GoodListView(ListView):
 	template_name = 'opt_online/index.html'
 	#queryset = Goods.objects.all().order_by('code')
 	#context_object_name = 'ivan_list'
-	paginate_by = 2
+	paginate_by = 1
 	category = None
 
 	def get(self, request, *args, **kwargs):
