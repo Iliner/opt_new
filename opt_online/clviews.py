@@ -1,14 +1,20 @@
 from django.views.generic.base import TemplateView
 from django.views.generic.list  import ListView, BaseListView
+from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator, InvalidPage
 from .models import Category, Goods
 from django.http import HttpResponse, Http404
 
 
 class GoodListView(ListView):
+	"""
+	Класс удобный для вывода СПИСКА чего либа 
+	"""
+
 	template_name = 'opt_online/index.html'
 	paginate_by = 1
 	category = None
+
 
 	def get(self, request, *args, **kwargs):
 		"""
@@ -35,7 +41,7 @@ class GoodListView(ListView):
 		"""
 		Этот метод вызврощает спичсок 
 		записей которые будут выводиться 
-		на экран
+		на экран 
 		""" 
 
 		if self.category:
@@ -47,6 +53,7 @@ class GoodListView(ListView):
 
 class GoodView(TemplateView):
 	template_name = 'opt_online/good.html'
+
 	def get(self, request, *args, **kwargs):
 		return super(GoodView, self).get(request, *args, **kwargs)
 
@@ -62,6 +69,34 @@ class GoodView(TemplateView):
 
 	def get_queryset(self):
 		return Goods.objects.get(code=context['code'])
+
+
+
+
+# class GoodView(DetailView):
+# 	"""
+# 	Удобен для вывода ПОДРОБНЫХ сведений 
+# 	какой-либо позиции. Например товара
+# 	"""
+
+# 	template_name = 'opt_online/good.html'
+# 	model = Goods
+# 	pk_url_kwarg = 'code'
+	
+# 	def get_context_data(self, **kwargs):
+# 		context = super(GoodView, self).get_context_data(**kwargs)
+# 		context['pn'] = 1 
+# 		return context
+
+
+# 	def get_queryset(self):
+# 		return Goods.objects.all()
+
+
+
+
+
+
 
 
 
