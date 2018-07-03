@@ -6,7 +6,6 @@
 		<div>{{good.producer}}</div>
 		<div>{{good.articul}}</div>
 		<div>{{good.description}}</div>
-		<div><a href="{% url 'index' %}?page={{pn}}">back</a></div>
-		<div>{{ivan}}</div>
+		<div><a href="{% url 'index' cat_id=good.category.id %}?page={{pn}}">back</a></div>
 	</div>
 {% endblock %}
